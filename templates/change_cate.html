@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>用户信息修改</title>
+    <style>
+        body {
+            background-image: url("../static/images/bgt.jpg");
+            background-size: cover; /* 调整背景图片尺寸以适应屏幕 */
+            background-repeat: no-repeat; /* 禁止背景图片重复 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #99D9EA;
+        }
+
+        .im1 {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+
+        .im {
+            width: 60px;
+            height: 60px;
+            border-radius: 40%;
+        }
+
+        .title {
+            width: 200px;
+            height: 10px;
+            text-align: center;
+            margin: auto;
+            margin-top: 20px;
+            font-size: 25px;
+            color: #fff;
+        }
+
+        .title .lo {
+            margin: 0;
+            border-bottom: 1px #000 solid;
+            padding: 10px;
+            border-radius: 10%;
+        }
+
+        .title .log {
+            font-size: 5px;
+            margin: 0;
+        }
+
+        input {
+            height: 30px;
+        }
+
+        .btu1 {
+            width: 80px;
+            background-color: #000;
+            border-radius: 20%;
+            display: block;
+            margin: 0 auto;
+            color: #fff;
+            border: 1px #000 solid;
+
+        }
+
+        /* .res{
+          width: 80px;
+          display: block;
+        }
+        a{
+          text-decoration: none;
+          color: #fff;
+        } */
+    </style>
+</head>
+<body>
+<div class="im1">
+    <img src="{{ url_for('static',filename='images/login.jpg') }} " class='im' alt="">
+    <!--      <img src="头像.png" class='im' alt="">-->
+</div>
+<div class="title">
+    <p class="lo">分类信息修改</p>
+    <p class="log">user res</p>
+</div>
+<form style="width: 200px ;margin:60px auto" method="POST">
+    <div class="mb-3">
+        <label for="user_name">用户名</label>
+        <input type="text"
+               class="form-control"
+               id="user_name"
+               style="float: left"
+               aria-describedby="emailHelp"
+               name="user_name"
+               value="{{ cate[0] }}"
+               readonly
+        >
+    </div>
+
+    <div class="mb-3">
+        <label for="user_name">类别</label>
+        <input type="text"
+               class="form-control"
+               id="class"
+               style="float: left"
+               name="class"
+               value="{{ cate[1] }}"
+        >
+    </div>
+
+    <div class="mb-3">
+        <label for="user_name">图片路径</label>
+        <!-- <label for="user_passwd" class="form-label">用户密码</label> -->
+        <input type="text"
+               class="form-control"
+               id="path"
+               style="float: left"
+               name="path"
+               value="{{ cate[2] }}"
+               readonly
+        >
+    </div>
+    <h6 style="color: red">{{ text }}</h6>
+    <button type="submit" class="btu1" style="margin-top: 40px">修改</button>
+
+</form>
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>当前用户信息修改</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  </head>
+  <body class="app sidebar-mini">
+    <!-- Navbar-->
+    <header class="app-header"><a class="app-header__logo" href="/">Quit</a>
+      <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+      <div class="app-sidebar__user">
+        <div>
+          <p class="app-sidebar__user-name" style="margin-left: 70px;">{{admin}}</p>
+          <p class="app-sidebar__user-designation" style="margin-left: 70px;">用户</p>
+        </div>
+      </div>
+      <ul class="app-menu">
+        <li><a class="app-menu__item" href="/dashboard"><i class="app-menu__icon bi bi-speedometer"></i><span class="app-menu__label">图形可视化</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i><span class="app-menu__label">肺炎检测识别</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="/identify"><i class="icon bi bi-circle-fill"></i> 初始化识别界面</a></li>
+            <!-- <li><a class="treeview-item active" href="/user_information_control"><i class="icon bi bi-circle-fill"></i> 用户信息管理</a></li> -->
+          </ul>
+        </li>
+        <li class="treeview is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-ui-checks"></i><span class="app-menu__label">用户信息修改</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item active" href="/change_current_user"><i class="icon bi bi-circle-fill"></i> 当前登录用户信息修改</a></li>
+            <!-- <li><a class="treeview-item active" href="/change_current_user"><i class="icon bi bi-circle-fill"></i> 当前登录用户信息修改</a></li> -->
+          </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-table"></i><span class="app-menu__label">信息管理</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="/show_cate"><i class="icon bi bi-circle-fill"></i> 肺炎检测结果管理</a></li>
+            <li><a class="treeview-item" href="/user_information_control"><i class="icon bi bi-circle-fill"></i> 用户信息管理</a></li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <main class="app-content">
+      <div class="app-title">
+        <div>
+          <h1><i class="bi bi-ui-checks"></i> 修改当前用户信息</h1>
+          <p>Modify current user information</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <div class="row">
+              <div class="col-lg-6">
+                <form method="POST">
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleInputEmail1">用户名</label>
+                    <input class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" name = "user_name" value="{{ user[0] }}" readonly>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">密码</label>
+                    <input class="form-control" id="exampleInputPassword1" type="password" name = "user_passwd" value="{{ user[1] }}">
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">确认密码</label>
+                    <input class="form-control" id="exampleInputPassword1" type="password" name = "password_confirm" value="{{ user[1] }}">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">姓名</label>
+                    <input class="form-control" id="exampleInputPassword1" type="text" name = "name" value="{{ user[2] }}">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">地址</label>
+                    <input class="form-control" id="exampleInputPassword1" type="address" name = "address" value="{{ user[3] }}">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleSelect1">性别</label>
+                    <select class="form-control" id="exampleSelect1" name="sex" value="{{ user[4] }}">
+                      <option>男</option>
+                      <option>女</option>
+                    </select>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">电话号码</label>
+                    <input class="form-control" id="exampleInputPassword1" type="text" name="number" value="{{ user[5] }}">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="exampleInputPassword1">创建用户时间</label>
+                    <input class="form-control" id="exampleInputPassword1" type="text" placeholder="{{ user[6] }}" readonly>
+                  </div>
+                   <h4>{{ text }}</h4>
+                  <div class="tile-footer">
+                    <button class="btn btn-primary" type="submit">修改当前用户信息</button>
+                  </div>
+                </form>
+              </div>
+           
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Essential javascripts for application to work-->
+    <script src="../static/js/jquery-3.7.0.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/main.js"></script>
+    <!-- Page specific javascripts-->
+    <!-- Google analytics script-->
+    <script type="text/javascript">
+      if(document.location.hostname == 'pratikborsadiya.in') {
+      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      	ga('create', 'UA-72504830-1', 'auto');
+      	ga('send', 'pageview');
+      }
+    </script>
+  </body>
+</html>

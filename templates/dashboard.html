@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>图形可视化</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  </head>
+  <body class="app sidebar-mini">
+    <!-- Navbar-->
+    <header class="app-header"><a class="app-header__logo" href="/">Quit</a>
+      <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+      <div class="app-sidebar__user">
+        <div>
+          <p class="app-sidebar__user-name" style="margin-left: 70px;">{{ user }}</p>
+          <p class="app-sidebar__user-designation" style="margin-left:70px;">用户</p>
+        </div>
+      </div>
+      <ul class="app-menu">
+        <li><a class="app-menu__item active" href="/dashboard"><i class="app-menu__icon bi bi-speedometer"></i><span class="app-menu__label">图形可视化</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i><span class="app-menu__label">肺炎检测识别</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+          <ul class="treeview-menu">
+             <li><a class="treeview-item" href="/identify"><i class="icon bi bi-circle-fill"></i> 初始化识别界面</a></li>
+          </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-ui-checks"></i><span class="app-menu__label">用户信息修改</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="/change_current_user"><i class="icon bi bi-circle-fill"></i> 用户信息修改界面</a></li>
+          </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-table"></i><span class="app-menu__label">信息管理</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="/show_cate"><i class="icon bi bi-circle-fill"></i> 肺炎检测结果管理</a></li>
+            <li><a class="treeview-item" href="/user_information_control"><i class="icon bi bi-circle-fill"></i> 用户信息管理</a></li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <main class="app-content">
+      <div class="app-title">
+        <div>
+          <h1><i class="bi bi-speedometer"></i> 图形可视化 </h1>
+          <p>graphical visualization</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small primary coloured-icon"><i class="icon bi bi-people fs-1"></i>
+            <div class="info">
+              <h4>Users</h4>
+              <p><b>{{user_length}}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small info coloured-icon"><i class="icon bi bi-heart fs-1"></i>
+            <div class="info">
+              <h4>category</h4>
+              <p><b>{{cate_length}}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small warning coloured-icon"><i class="icon bi bi-folder2 fs-1"></i>
+            <div class="info">
+              <h4>训练集准确率</h4>
+              <p><b>0.989</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small danger coloured-icon"><i class="icon bi bi-star fs-1"></i>
+            <div class="info">
+              <h4>验证集准确率</h4>
+              <p><b>0.956</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">每日检测结果统计</h3>
+            <div class="ratio ratio-16x9">
+              <div id="salesChart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">训练模型时的各数据集数量</h3>
+            <div class="ratio ratio-16x9">
+              <div id="supportRequestChart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Essential javascripts for application to work-->
+    <script src="../static/js/jquery-3.7.0.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/main.js"></script>
+    <!-- Page specific javascripts-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+      const countList = JSON.parse('{{ count_list | tojson | safe }}');
+      var long = countList.length;
+      var X = new Array();;
+      var y = new Array();;
+      for(i=0;i < long;i++){
+        X[i] = countList[i].date;
+        y[i] = countList[i].count;
+      }
+      const salesData = {
+      	xAxis: {
+      		type: 'category',
+      		data: X
+      	},
+      	yAxis: {
+      		type: 'value',
+      		axisLabel: {
+      			formatter: '{value}'
+      		}
+      	},
+      	series: [
+      		{
+      			data: y,
+      			type: 'line',
+      			smooth: true
+      		}
+      	],
+      	tooltip: {
+      		trigger: 'axis',
+      		formatter: "<b>{b0}:</b> {c0}"
+      	}
+      }
+
+
+      const supportRequests = {
+      	tooltip: {
+      		trigger: 'item'
+      	},
+      	legend: {
+      		orient: 'vertical',
+      		left: 'left'
+      	},
+      	series: [
+      		{
+      			name: 'The number of each data set when training the model',
+      			type: 'pie',
+      			radius: '50%',
+      			data: [
+      				{ value: 573, name: 'covid' },
+      				{ value: 568, name: 'normal' },
+      				{ value: 634, name: 'virus' }
+      			],
+      			emphasis: {
+      				itemStyle: {
+      					shadowBlur: 10,
+      					shadowOffsetX: 0,
+      					shadowColor: 'rgba(0, 0, 0, 0.5)'
+      				}
+      			}
+      		}
+      	]
+      };
+      
+      const salesChartElement = document.getElementById('salesChart');
+      const salesChart = echarts.init(salesChartElement, null, { renderer: 'svg' });
+      salesChart.setOption(salesData);
+      new ResizeObserver(() => salesChart.resize()).observe(salesChartElement);
+      
+      const supportChartElement = document.getElementById("supportRequestChart")
+      const supportChart = echarts.init(supportChartElement, null, { renderer: 'svg' });
+      supportChart.setOption(supportRequests);
+      new ResizeObserver(() => supportChart.resize()).observe(supportChartElement);
+    </script>
+    <!-- Google analytics script-->
+    <script type="text/javascript">
+      if(document.location.hostname == 'pratikborsadiya.in') {
+      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      	ga('create', 'UA-72504830-1', 'auto');
+      	ga('send', 'pageview');
+      }
+    </script>
+  </body>
+</html>
