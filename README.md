@@ -39,5 +39,10 @@
 ## 用户信息展示
 ![alt text](image-3.png)
 
+模型参数链接（百度网盘）：链接：https://pan.baidu.com/s/1TwvJxrGc8_p2oHCmXEr7ig?pwd=1234 
+提取码：1234 
+验证数据集链接（百度网盘）：链接：https://pan.baidu.com/s/1sH0s9lqvsmjK86PLFNP31A?pwd=1234 
+提取码：1234
 
-本项目基于 X-admin运用需遵守遵循Apache2开源协议发布
+
+本项目开发基于X-admin，运用需遵守遵循Apache2开源协议发布
